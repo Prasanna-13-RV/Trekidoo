@@ -25,7 +25,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true });
+mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true });
 
 mongoose.set("useCreateIndex", true);
 
@@ -202,28 +202,28 @@ app
   });
 
 app.route("/contact")
-    .get((req, res) => {})
-    .post((req,res) =>{
-      const email = req.body.mail;
-      const comment = req.body.comment;
-      console.log(email);
-      console.log(comment);
-      
-      let mailOptions = {
-          from: "trekidoolegalpirates@gmail.com",
-          to: "legalpirates2020@gmail.com",
-          subject: "Comments from user",
-          html: `<h2> ${email} </h2>` +`<p>${comment}</p>`
-      };
-        transporter.sendMail(mailOptions, function (error, info) {
-          if (error) {
-            console.log(error);
-          } else {
-            console.log("Email sent: " + info.response);
-          }
-        });
-        res.redirect("/about");
-});
+  .get((req, res) => { })
+  .post((req, res) => {
+    const email = req.body.mail;
+    const comment = req.body.comment;
+    console.log(email);
+    console.log(comment);
+
+    let mailOptions = {
+      from: "trekidoolegalpirates@gmail.com",
+      to: "legalpirates2020@gmail.com",
+      subject: "Comments from user",
+      html: `<h2> ${email} </h2>` + `<p>${comment}</p>`
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+    res.redirect("/about");
+  });
 
 
 
